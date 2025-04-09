@@ -1,21 +1,23 @@
 import { Col, Container, Row, Card, Badge } from "react-bootstrap";
-import { data, Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 
 const Details = () => {
   const params = useParams();
-
+  const [error, setError] = useState(false);
   const [state, setState] = useState([]);
 
-  const url = "http://www.omdbapi.com/?apikey=24ad60e9";
-  const getData = () => {
-    fetch(url)
+  const url = "http://www.omdbapi.com/?apikey=24ad60e9&i=";
+
+  useEffect(() => {
+    fetch(url + params.moviesId)
       .then((response) => response.json())
       .then((response) => {
         if (response) {
           console.log("tutto bene", response);
           setState(response);
+          console.log("eccomi", state);
         } else {
           setError(true);
         }
@@ -23,25 +25,31 @@ const Details = () => {
       .catch((error) => {
         console.log(error);
       });
-  };
-  useEffect(() => {
-    getData();
-  }, []);
+  }, [params.moviesId]);
 
-  useEffect(() => {
-    // controllo che filmID esista
-    // const foundFilm = arrayConIFilm.find((film) => {
-    //     return film.id.toString() === params.filmID
-    //   })
-    getData([state]);
-  }, []);
-  console.log("PARAMS", params);
+  console.log("state", state);
 
   return (
-    <h1>
-      qua vado a creare la carta dove avro i dati richiesti una immagine del
-      film con una descrizione il voto ecc tutto quello che voglio far vedere
-    </h1>
+    <Container>
+      <Row sd={12} md={6} lg={4} className="justify-content-center">
+        <Col>
+          <Card>
+            <Card.Img variant="top" src={state.Poster} />
+            <Card.Body>
+              <Card.Title>Card Title</Card.Title>
+              <Card.Text>{state.Plot}</Card.Text>
+            </Card.Body>
+            {state.Ratings &&
+              state.Ratings.map((rating, index) => (
+                <Badge key={index} className=" my-1">
+                  {rating.Source}: {rating.Value}
+                </Badge>
+              ))}
+            <Badge>{state.BoxOffice}</Badge>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

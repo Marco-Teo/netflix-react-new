@@ -66,7 +66,7 @@ const App = () => {
         <MyNavbar />
         <Routes>
           <Route path="/Tv-Show" element={<TvShow />} />
-          <Route path="/details" element={<Details />} />
+          <Route path="/details/:moviesId" element={<Details />} />
         </Routes>
         <Container fluid className="px-4">
           <div className="d-flex justify-content-between">
