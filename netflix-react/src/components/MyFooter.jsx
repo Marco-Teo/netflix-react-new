@@ -2,7 +2,7 @@ import { Row, Col } from "react-bootstrap";
 
 const MyFooter = () => (
   <footer>
-    <Row className="text-center mt-5">
+    <Row className="text-center">
       <Col xs={{ span: 6, offset: 3 }}>
         <Row>
           <Col xs={12} className="text-left mb-2">

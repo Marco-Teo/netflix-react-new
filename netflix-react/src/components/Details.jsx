@@ -30,7 +30,7 @@ const Details = () => {
   console.log("state", state);
 
   return (
-    <Container className="d-flex flex-column min-vh-100">
+    <Container className="d-flex flex-column">
       <Row sd={12} md={6} lg={4} className="justify-content-center flex-grow-1">
         <Col>
           <Card>
